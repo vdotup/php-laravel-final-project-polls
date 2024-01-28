@@ -4,7 +4,6 @@
 
 @section('content')
     <div class="container">
-        <button onclick="share()" id="share" class="btn btn-success mt-3">مشاركة</button>
         <div class="row justify-content-center">
             <div class="col-md-8">
 
@@ -13,9 +12,9 @@
                     <div class="card-header">{{ $poll->title }}</div>
                     <div class="card-body">
                         <p>{{ $poll->text }}</p>
-                        <p>Type: {{ $poll->type }}</p>
+                        {{-- <p>Type: {{ $poll->type }}</p>
                         <p>Start Date: {{ $poll->start_date->format('Y-m-d') }}</p>
-                        <p>End Date: {{ $poll->end_date->format('Y-m-d') }}</p>
+                        <p>End Date: {{ $poll->end_date->format('Y-m-d') }}</p> --}}
                         <form action="{{ route('polls.vote', $poll) }}" method="POST">
                             @csrf
                             <ul class="list-group">
@@ -32,7 +31,7 @@
                                     </li>
                                 @endforeach
                             </ul>
-                            <button type="submit" class="btn btn-success mt-3">Vote</button>
+                            <button type="submit" class="btn btn-success mt-3">تصويت</button>
                   
                         </form>
                     </div>

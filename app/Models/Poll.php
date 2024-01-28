@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Poll extends Model
 {
@@ -55,4 +56,9 @@ class Poll extends Model
     {
         return $this->end_date < now();
     }
+
+    public function userHasVoted(Request $request)
+{
+    return $request->hasCookie('poll_vote_' . $this->id);
+}
 }

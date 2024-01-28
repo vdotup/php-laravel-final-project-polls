@@ -10,22 +10,24 @@
                 <div class="card-header">{{ $poll->title }}</div>
                 <div class="card-body">
                     <p>{{ $poll->text }}</p>
-                    <p>Type: {{ $poll->type }}</p>
-                    <p>Start Date: {{ $poll->start_date->format('Y-m-d') }}</p>
-                    <p>End Date: {{ $poll->end_date->format('Y-m-d') }}</p>
-                    <p>Total Votes: {{ $poll->options->sum('votes') }}</p>
+                    <p>نوع الإختيار: {{ $poll->type == "single" ? "واحد" : "متعدد" }}</p>
+                    <p>تاريخ البداية: {{ $poll->start_date->format('Y-m-d') }}</p>
+                    <p>تاريخ النهاية: {{ $poll->end_date->format('Y-m-d') }}</p>
+                    <p>مجموع الأصوات: {{ $poll->options->sum('votes') }}</p>
                     <ul class="list-group">
                         @foreach ($poll->options as $option)
                             <li class="list-group-item">
                                 <h5>{{ $option->text }}</h5>
-                                <p>Votes: {{ $option->votes }}</p>
+                                <p>عدد الأصوات: {{ $option->votes }}</p>
                                 <div class="progress">
-                                    {{-- <div class="progress-bar" role="progressbar" style="width: {{ $option->votes / $poll->options->sum('votes') * 100 }}%" aria-valuenow="{{ $option->votes }}" aria-valuemin="0" aria-valuemax="{{ $poll->options->sum('votes') }}"></div> --}}
+                                    @if ($poll->options->sum('votes') > 0)
+                                    <div class="progress-bar" role="progressbar" style="width: {{ $option->votes / $poll->options->sum('votes') * 100 }}%" aria-valuenow="{{ $option->votes }}" aria-valuemin="0" aria-valuemax="{{ $poll->options->sum('votes') }}"></div>
+                                    @endif
                                 </div>
                             </li>
                         @endforeach
                     </ul>
-                    <a href="{{ route('index') }}" class="btn btn-secondary mt-3">Back to Home</a>
+                    <a href="{{ route('index') }}" class="btn btn-secondary mt-3">عودة</a>
                 </div>
             </div>
         </div>

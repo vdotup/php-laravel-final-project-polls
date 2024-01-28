@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PollController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,13 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     redirect('home');
+// })->middleware('auth');
 
-// Route::get('/index', function () {
-//     return view('index');
-// })->name('index');;
+Route::get('/', [PollController::class, 'index'])->name('home')->middleware('auth');
 
 Auth::routes();
 
@@ -32,3 +31,6 @@ Route::resource('polls', PollController::class)->middleware('auth');
 
 Route::get('polls/{poll}/share', [PollController::class, 'share'])->name('polls.share');
 Route::post('polls/{poll}/vote', [PollController::class, 'vote'])->name('polls.vote');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
