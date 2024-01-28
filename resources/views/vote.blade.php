@@ -15,7 +15,8 @@
                         {{-- <p>Type: {{ $poll->type }}</p>
                         <p>Start Date: {{ $poll->start_date->format('Y-m-d') }}</p>
                         <p>End Date: {{ $poll->end_date->format('Y-m-d') }}</p> --}}
-                        <form action="{{ route('polls.vote', $poll) }}" method="POST">
+                            <form action="{{ route('polls.vote', $poll->token) }}" method="POST">
+                        {{-- <form action="{{ route('polls.vote', $poll) }}" method="POST"> --}}
                             @csrf
                             <ul class="list-group">
                                 @foreach ($poll->options as $option)

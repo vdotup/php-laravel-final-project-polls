@@ -29,8 +29,9 @@ Route::get('/index', [PollController::class, 'index'])->name('index');
 
 Route::resource('polls', PollController::class)->middleware('auth');
 
-Route::get('polls/{poll}/share', [PollController::class, 'share'])->name('polls.share');
-Route::post('polls/{poll}/vote', [PollController::class, 'vote'])->name('polls.vote');
+Route::put('/polls/{poll}', [PollController::class, 'update'])->name('polls.update');
+Route::get('polls/{token}/share', [PollController::class, 'share'])->name('polls.share');
+Route::post('polls/{token}/vote', [PollController::class, 'vote'])->name('polls.vote');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
