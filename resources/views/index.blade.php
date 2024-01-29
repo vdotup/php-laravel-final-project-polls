@@ -58,6 +58,24 @@
     .progress-bar {
         height: 100%;
     }
+
+    .poll-card {
+        position: relative;
+    }
+
+    .expired-card {
+        background-color: #eaeaea;
+    }
+
+    .expiration-date {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        font-size: 12px;
+        color: #999;
+    }
+
+    
 </style>
 
 <div class="container">
@@ -69,7 +87,12 @@
                 <div class="card-body">
                     <a href="{{ route('polls.create') }}" class="btn btn-primary mb-3">تصويت جديد</a>
                     @foreach ($polls as $poll)
-                    <div class="card mb-3">
+                    <div class="card mb-3 poll-card {{ $poll->isActive() ? '' : 'expired-card' }}">
+                        @if ($poll->isActive())
+                            <span class="expiration-date">ينتهي في: {{ date('d/m/Y', strtotime($poll->end_date)) }}</span>
+                        @else
+                            <span class="expiration-date">منتهي</span>
+                        @endif
                         <div class="card-body" style="margin-bottom: 15px;">
                             <h5 class="card-title">{{ $poll->title }}</h5>
                             <p class="card-text">{{ $poll->text }}</p>
@@ -97,6 +120,7 @@
                         <button class="btn copy-link-btn" onclick="copyPublicLink('{{ route('polls.share', $poll->token) }}')">
                             <i class="fas fa-copy copy-votes-icon"></i>
                         </button>
+                        
                     </div>
                     @endforeach
                 </div>

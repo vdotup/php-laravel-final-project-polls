@@ -146,7 +146,7 @@ class PollController extends Controller
                 $option->vote();
             }
         }
-
+        
         $poll->markAsVoted($request);
 
         echo ' <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script><script>

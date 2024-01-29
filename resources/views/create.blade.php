@@ -44,7 +44,7 @@
                         </div>
                         <div class="form-group mt-3">
                             <label for="start_date">تاريخ البداية</label>
-                            <input type="date" name="start_date" id="start_date" class="form-control @error('start_date') is-invalid @enderror" value="{{ old('start_date') }}" required>
+                            <input type="date" name="start_date" id="start_date" class="form-control @error('start_date') is-invalid @enderror"  value="{{ old('start_date', date('Y-m-d')) }}" required>
                             @error('start_date')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -94,4 +94,24 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get references to the start_date and end_date input fields
+        var startDateInput = document.getElementById("start_date");
+        var endDateInput = document.getElementById("end_date");
+
+        // Add an event listener to the end_date input field
+        endDateInput.addEventListener("change", function () {
+            // Parse the selected dates
+            var startDate = new Date(startDateInput.value);
+            var endDate = new Date(endDateInput.value);
+
+            // Check if the end date is before the start date
+            if (endDate < startDate) {
+                alert("تاريخ النهاية يجب أن يكون بعد تاريخ البداية");
+                endDateInput.value = startDateInput.value;
+            }
+        });
+    });
+</script>
 @endsection

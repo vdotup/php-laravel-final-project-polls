@@ -71,14 +71,13 @@ class Poll extends Model
 
     public function markAsVoted()
     {
-        // dd($this->id); -> 16
-        Cookie::make('poll_vote_', $this->id, 60 * 24 * 365);
+        Cookie::queue('poll_vote_', $this->token, 60 * 24 * 365);
     }
 
     public function userHasVoted(Request $request)
     {
         $value = Cookie::get('poll_vote_');
-        // dd($value); -> null
-        return $value === true;
+        // dd($value);
+        return $value === $this->token;
     }
 }
